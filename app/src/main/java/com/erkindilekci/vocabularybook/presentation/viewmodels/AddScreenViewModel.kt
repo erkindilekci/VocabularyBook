@@ -1,6 +1,5 @@
 package com.erkindilekci.vocabularybook.presentation.viewmodels
 
-import android.content.ContentResolver
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.erkindilekci.vocabularybook.data.local.room.VocabularyCard
@@ -19,5 +18,4 @@ class AddScreenViewModel @Inject constructor(
             repository.insertVocabulary(vocabularyCard)
         }
     }
-
 }

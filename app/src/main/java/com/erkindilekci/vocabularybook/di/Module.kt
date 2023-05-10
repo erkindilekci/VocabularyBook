@@ -19,11 +19,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object Module {
-    val migration1to2 = object : Migration(1, 2) {
-        override fun migrate(database: SupportSQLiteDatabase) {
-        }
-    }
-
     @Singleton
     @Provides
     fun provideDatabase(
@@ -32,7 +27,7 @@ object Module {
         context,
         VocabularyDatabase::class.java,
         DATABASE_NAME
-    ).addMigrations(migration1to2).build()
+    ).build()
 
     @Singleton
     @Provides

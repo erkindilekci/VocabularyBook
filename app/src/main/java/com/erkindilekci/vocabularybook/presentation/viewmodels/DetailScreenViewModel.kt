@@ -21,8 +21,6 @@ class DetailScreenViewModel @Inject constructor(
     private val _detailState = MutableStateFlow(DetailScreenState())
     val detailState: StateFlow<DetailScreenState> = _detailState.asStateFlow()
 
-    var myList: List<VocabularyCard> = emptyList()
-
     fun getVocabulariesByCategory(category: String) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.getVocabulariesByCategory(category).collect { list ->

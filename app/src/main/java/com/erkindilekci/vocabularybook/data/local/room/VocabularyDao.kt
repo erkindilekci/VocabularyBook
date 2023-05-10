@@ -15,9 +15,6 @@ interface VocabularyDao {
     @Delete
     suspend fun deleteVocabulary(card: VocabularyCard)
 
-    //@Query("SELECT * FROM vocabulary_table")
-    //fun getAllVocabularies(): Flow<List<VocabularyCard>>
-
     @Query("SELECT category FROM vocabulary_table")
     fun getAllCategories(): Flow<List<String>>
 

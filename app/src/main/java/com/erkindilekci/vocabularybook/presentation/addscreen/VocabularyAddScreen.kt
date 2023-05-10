@@ -50,7 +50,6 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import coil.decode.DecodeUtils.calculateInSampleSize
 import com.erkindilekci.vocabularybook.R
 import com.erkindilekci.vocabularybook.data.local.room.VocabularyCard
 import com.erkindilekci.vocabularybook.presentation.ui.theme.MyBackgroundColor
@@ -58,7 +57,6 @@ import com.erkindilekci.vocabularybook.presentation.ui.theme.MyButtonTextColor
 import com.erkindilekci.vocabularybook.presentation.ui.theme.MyCardColor
 import com.erkindilekci.vocabularybook.presentation.ui.theme.MyTopAppBarColor
 import com.erkindilekci.vocabularybook.presentation.viewmodels.AddScreenViewModel
-import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 
@@ -70,7 +68,6 @@ fun VocabularyAddScreen(
     viewModel: AddScreenViewModel = hiltViewModel(),
     navController: NavController
 ) {
-    //val orientation = LocalConfiguration.current.orientation
     val activity = (LocalContext.current) as Activity
     activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
@@ -94,24 +91,8 @@ fun VocabularyAddScreen(
         onResult = { uri -> selectedImageUri = uri }
     )
 
-    //val scrollState = rememberScrollState()
-
     val contentResolver = LocalContext.current.contentResolver
 
-    /*fun uriToByteArray(uri: Uri): ByteArray? {
-        val inputStream: InputStream = contentResolver.openInputStream(uri) ?: return null
-
-        val buffer = ByteArray(8192)
-        val outputStream = ByteArrayOutputStream()
-
-        while (true) {
-            val bytesRead = inputStream.read(buffer)
-            if (bytesRead == -1) break
-            outputStream.write(buffer, 0, bytesRead)
-        }
-
-        return outputStream.toByteArray()
-    }*/
     fun uriToByteArray(uri: Uri, quality: Int = 80): ByteArray? {
         val inputStream: InputStream = contentResolver.openInputStream(uri) ?: return null
         val options = BitmapFactory.Options()
@@ -124,8 +105,6 @@ fun VocabularyAddScreen(
         return outputStream.toByteArray()
     }
 
-
-    //if (orientation == Configuration.ORIENTATION_PORTRAIT) {
     Scaffold(
         topBar = {
             VocabularyAddScreenAppBar()
@@ -145,9 +124,7 @@ fun VocabularyAddScreen(
                         .weight(8f)
                         .padding(start = 20.dp, end = 20.dp, top = 30.dp, bottom = 15.dp)
                         .clip(RoundedCornerShape(20.dp))
-                        //.background(MyTopAppBarColor)
                         .background(Color(0xFF8362af))
-                    //.scrollable(scrollState, Orientation.Vertical)
                 ) {
                     Box(
                         modifier = Modifier
@@ -188,7 +165,6 @@ fun VocabularyAddScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 12.dp),
-                        //.scale(scaleY = 0.9F, scaleX = 1F),
                         //.height(55.dp),
                         placeholder = {
                             Text(
@@ -224,7 +200,6 @@ fun VocabularyAddScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 12.dp),
-                        //.scale(scaleY = 0.9F, scaleX = 1F),
                         //.height(55.dp),
                         placeholder = {
                             Text(
@@ -291,7 +266,6 @@ fun VocabularyAddScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(start = 12.dp, end = 12.dp, top = 10.dp, bottom = 15.dp),
-                        //.scale(scaleY = 0.9F, scaleX = 1F),
                         //.height(55.dp)
                         placeholder = {
                             Text(
@@ -322,8 +296,6 @@ fun VocabularyAddScreen(
                 val titleCant = stringResource(id = R.string.title_cant)
                 val descCant = stringResource(id = R.string.desc_cant)
                 val categoryCant = stringResource(id = R.string.category_Cant)
-
-                val scope = rememberCoroutineScope()
 
                 Button(
                     onClick = {
@@ -373,17 +345,4 @@ fun VocabularyAddScreen(
             }
         }
     )
-} /*else {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            Alignment.CenterHorizontally
-        ) {
-            Text(text = "Please rotate your device to portrait mode for this screen!")
-            
-            *//*Button(onClick = { activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT }) {
-                Text(text = "Change to portrait")
-            }*//*
-        }
-    }*/
-//}
+}

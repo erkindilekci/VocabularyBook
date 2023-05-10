@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,6 +27,11 @@ fun CategoryScreenAppBar() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = stringResource(id = R.string.categories), style = MaterialTheme.typography.titleMedium, fontSize = 23.sp, color = Color.White)
+        Text(
+            text = stringResource(id = R.string.categories),
+            style = MaterialTheme.typography.titleMedium,
+            fontSize = 23.sp,
+            color = Color.White
+        )
     }
 }

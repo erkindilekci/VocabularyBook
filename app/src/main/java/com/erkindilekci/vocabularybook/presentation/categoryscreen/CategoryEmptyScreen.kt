@@ -1,5 +1,6 @@
 package com.erkindilekci.vocabularybook.presentation.categoryscreen
 
+/*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -43,4 +44,4 @@ fun CategoryEmptyScreen() {
             fontSize = 24.sp
         )
     }
-}
+}*/

@@ -4,8 +4,6 @@ import com.erkindilekci.vocabularybook.data.local.room.VocabularyCard
 import kotlinx.coroutines.flow.Flow
 
 interface VocRepository {
-    //fun getAllVocabularies(): Flow<List<VocabularyCard>>
-
     fun getVocabulariesByCategory(category: String): Flow<List<VocabularyCard>>
 
     suspend fun insertVocabulary(vocabularyCard: VocabularyCard)

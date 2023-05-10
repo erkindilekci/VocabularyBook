@@ -25,7 +25,7 @@ fun ComposeNavigation() {
             navArgument("category") { type = NavType.StringType }
         )) {
             val category = remember { it.arguments?.getString("category") }
-            DetailScreen(navController = navNavController, category = category ?:"")
+            DetailScreen(navController = navNavController, category = category ?: "")
         }
     }
 }

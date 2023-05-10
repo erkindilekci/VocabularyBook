@@ -14,20 +14,16 @@ import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.erkindilekci.vocabularybook.R
 import com.erkindilekci.vocabularybook.presentation.ui.theme.MyBackgroundColor
 import com.erkindilekci.vocabularybook.presentation.ui.theme.MyStatusBarColor
 import com.erkindilekci.vocabularybook.presentation.viewmodels.CategoryScreenViewModel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -72,5 +68,4 @@ fun CategoryScreen(
             )
         }
     )
-
 }

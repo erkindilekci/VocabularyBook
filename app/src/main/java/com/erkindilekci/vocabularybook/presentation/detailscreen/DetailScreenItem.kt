@@ -75,7 +75,12 @@ fun DetailScreenItem(
                     onDismissRequest = { isExpanded = false }
                 ) {
                     DropdownMenuItem(
-                        text = { Text(text = stringResource(id = R.string.delete), color = Color.Black) },
+                        text = {
+                            Text(
+                                text = stringResource(id = R.string.delete),
+                                color = Color.Black
+                            )
+                        },
                         onClick = {
                             onDeleteClicked()
                             isExpanded = false
@@ -93,7 +98,7 @@ fun DetailScreenItem(
             contentAlignment = Alignment.Center
         ) {
             vocabularyCard.image?.let { byteArray ->
-//
+
                 byteArray?.let { byteArrayToImageBitmap(it) }?.let { imageBitmap ->
                     Image(
                         bitmap = imageBitmap,
@@ -147,5 +152,4 @@ fun DetailScreenItem(
             }
         }
     }
-
 }

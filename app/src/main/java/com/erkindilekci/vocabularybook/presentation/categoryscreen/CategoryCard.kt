@@ -42,5 +42,4 @@ fun CategoryCard(category: String, modifier: Modifier = Modifier, onCategoryClic
             textAlign = TextAlign.Center
         )
     }
-
 }

@@ -9,10 +9,6 @@ import javax.inject.Inject
 class VocRepositoryImpl @Inject constructor(
     private val dao: VocabularyDao
 ) : VocRepository {
-    //override fun getAllVocabularies(): Flow<List<VocabularyCard>> {
-    //    return dao.getAllVocabularies()
-    //}
-
     override fun getVocabulariesByCategory(category: String): Flow<List<VocabularyCard>> {
         return dao.getVocabulariesByCategory(category)
     }
