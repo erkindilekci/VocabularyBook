@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Kelime Defteri</string>
+    <string name="title">Başlık</string>
+    <string name="description">Açıklama</string>
+    <string name="sentence">Cümle</string>
+    <string name="category">Kategori</string>
+    <string name="title_cant">Başlık boş olamaz!</string>
+    <string name="desc_cant">Açıklama boş olamaz!</string>
+    <string name="category_Cant">Kategori boş olamaz!</string>
+    <string name="save">Kaydet</string>
+    <string name="vas">Kelime Ekleme Ekranı</string>
+    <string name="add">Ekle</string>
+    <string name="categories">Kategoriler</string>
+    <string name="back">Geri</string>
+    <string name="next">İleri</string>
+    <string name="close">Kapat</string>
+    <string name="delete">Sil</string>
+    <string name="sad_face">Üzgün Yüz</string>
+    <string name="add_vocabulary_card">Kelime kartı ekle.</string>
+</resources>

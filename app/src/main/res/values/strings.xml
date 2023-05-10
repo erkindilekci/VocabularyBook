@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Vocabulary Book</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="sentence">Sentence</string>
+    <string name="category">Category</string>
+    <string name="title_cant">Title cannot be empty!</string>
+    <string name="desc_cant">Description cannot be empty!</string>
+    <string name="category_Cant">Category cannot be empty!</string>
+    <string name="save">Save</string>
+    <string name="vas">Vocabulary Adding Screen</string>
+    <string name="add">Add</string>
+    <string name="categories">Categories</string>
+    <string name="back">Back</string>
+    <string name="next">Next</string>
+    <string name="close">Close</string>
+    <string name="delete">Delete</string>
+    <string name="sad_face">Sad Face</string>
+    <string name="add_vocabulary_card">Add vocabulary card.</string>
+</resources>
