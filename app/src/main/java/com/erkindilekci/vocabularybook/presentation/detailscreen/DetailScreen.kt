@@ -62,6 +62,10 @@ fun DetailScreen(
         viewModel.getVocabulariesByCategory(category)
     }
 
+    fun onCardClicked(id: Int) {
+        navController.navigate("updatescreen/$id")
+    }
+
     Scaffold(
         topBar = {
             DetailScreenAppBar(
@@ -88,12 +92,7 @@ fun DetailScreen(
                             .fillMaxSize(),
                         vocabularyCard = vocabularyList[currentIndex],
                         onDeleteClicked = {
-                            if (currentIndex == 0) {
-                                viewModel.deleteVocabulary(vocabularyList[currentIndex])
-                                navController.navigate("categoryscreen") {
-                                    popUpTo("categoryscreen") { inclusive = true }
-                                }
-                            }
+                            onCardClicked(it)
                         })
 
                     Row(
@@ -125,6 +124,7 @@ fun DetailScreen(
                             Text(
                                 text = stringResource(id = R.string.back),
                                 fontSize = 20.sp,
+                                color = Color.White,
                                 modifier = Modifier.align(
                                     Alignment.CenterVertically
                                 )

@@ -14,7 +14,9 @@
     <string name="back">Geri</string>
     <string name="next">İleri</string>
     <string name="close">Kapat</string>
-    <string name="delete">Sil</string>
+    <string name="delete">Güncelle/Sil</string>
     <string name="sad_face">Üzgün Yüz</string>
     <string name="add_vocabulary_card">Kelime kartı ekle.</string>
+
+    <string name="update">Güncelle</string>
 </resources>

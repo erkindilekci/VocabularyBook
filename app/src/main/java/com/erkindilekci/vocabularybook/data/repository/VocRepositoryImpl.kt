@@ -21,11 +21,19 @@ class VocRepositoryImpl @Inject constructor(
         dao.deleteVocabulary(vocabularyCard)
     }
 
+    override suspend fun updateVocabulary(vocabularyCard: VocabularyCard) {
+        dao.updateVocabulary(vocabularyCard)
+    }
+
     override suspend fun deleteAll() {
         dao.deleteAll()
     }
 
     override fun getAllCategories(): Flow<List<String>> {
         return dao.getAllCategories()
+    }
+
+    override fun getVocabularyById(id: Int): Flow<VocabularyCard> {
+        return dao.getVocabularyById(id)
     }
 }

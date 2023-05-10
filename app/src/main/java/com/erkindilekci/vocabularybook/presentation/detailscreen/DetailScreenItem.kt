@@ -38,13 +38,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.erkindilekci.vocabularybook.R
 import com.erkindilekci.vocabularybook.data.local.room.VocabularyCard
+import com.erkindilekci.vocabularybook.presentation.ui.theme.MyCardColor
 import com.erkindilekci.vocabularybook.util.byteArrayToImageBitmap
 
 @Composable
 fun DetailScreenItem(
     modifier: Modifier = Modifier,
     vocabularyCard: VocabularyCard,
-    onDeleteClicked: () -> Unit
+    onDeleteClicked: (Int) -> Unit,
 ) {
     var isExpanded by remember { mutableStateOf(false) }
 
@@ -54,7 +55,7 @@ fun DetailScreenItem(
             //.weight(8f)
             .padding(start = 20.dp, end = 20.dp, top = 30.dp, bottom = 20.dp)
             .clip(RoundedCornerShape(20.dp))
-            .background(Color(0xFF8362af))
+            .background(MyCardColor)
     ) {
         Row(
             modifier = Modifier
@@ -82,7 +83,7 @@ fun DetailScreenItem(
                             )
                         },
                         onClick = {
-                            onDeleteClicked()
+                            onDeleteClicked(vocabularyCard.id)
                             isExpanded = false
                         }
                     )

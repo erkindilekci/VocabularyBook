@@ -10,8 +10,37 @@ val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
-val MyStatusBarColor = Color(0xFF5C3A92)
-val MyTopAppBarColor = Color(0xFF6F48A1)
-val MyBackgroundColor = Color(0xFFB3A5C6)
-val MyButtonTextColor = Color(0xFFD1C9DD)
-val MyCardColor = Color(0xFF8362af)
+var MyStatusBarColor = Color(0xFFFFFFFF) //600
+//var MyTopAppBarColor = Color(0xFF000000) //500
+var MyTopAppBarColor = Color.White
+var MyBackgroundColor = Color(0xFFB3A5C6) //200
+var MyButtonTextColor = Color(0xFFD1C9DD) //100
+var MyCardColor = Color(0xFF8362Af) //400
+
+// Purple
+val MyStatusBarColorPurple = Color(0xFF5C3A92) //600
+val MyTopAppBarColorPurple = Color(0xFF6F48A1) //500
+val MyBackgroundColorPurple = Color(0xFF987ebd) //200
+val MyButtonTextColorPurple = Color(0xFFD1C9DD) //100
+val MyCardColorPurple = Color(0xFF8362Af) //400
+
+// Orange
+val MyStatusBarColorOrange = Color(0xFFff8700) //800
+val MyTopAppBarColorOrange = Color(0xFFff9900) //700
+val MyCardColorOrange = Color(0xFFffac00) //600
+val MyBackgroundColorOrange = Color(0xFFffb44c) //400
+val MyButtonTextColorOrange = Color(0xFFffd04a) //300
+
+// Maroon
+val MyStatusBarColorMaroon = Color(0xFF8f0b0c) //800
+val MyTopAppBarColorMaroon = Color(0xFF9c1313) //700
+val MyCardColorMaroon = Color(0xFFac1c17) //600
+val MyBackgroundColorMaroon = Color(0xFFbb2723) //400
+val MyButtonTextColorMaroon = Color(0xFFbb5c58) //300
+
+// Blue
+val MyStatusBarColorBlue = Color(0xFF1d74b1) //800
+val MyTopAppBarColorBlue = Color(0xFF2085c5) //700
+val MyCardColorBlue = Color(0xFF2598d9) //600
+val MyBackgroundColorBlue = Color(0xFF29a5e8) //500
+val MyButtonTextColorBlue = Color(0xFF58c0ee) //300

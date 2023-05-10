@@ -4,13 +4,10 @@ import android.content.ContentResolver
 import android.content.ContentValues
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.media.Image
 import android.net.Uri
 import android.provider.MediaStore
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
-import androidx.room.TypeConverter
-import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 
@@ -44,17 +41,19 @@ fun byteArrayToUri(byteArray: ByteArray, contentResolver: ContentResolver): Uri?
     return uri
 }
 
-
-fun uriToImageBitmap(contentResolver: ContentResolver, uri: Uri): ImageBitmap? {
-    val inputStream = contentResolver.openInputStream(uri)
-    inputStream?.use {
-        val bitmap = BitmapFactory.decodeStream(it)
-        return bitmap.asImageBitmap()
-    }
-    return null
-}
-
 fun byteArrayToImageBitmap(byteArray: ByteArray): ImageBitmap? {
     val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
     return bitmap?.asImageBitmap()
+}
+
+fun uriToByteArray(uri: Uri, quality: Int = 80, contentResolver: ContentResolver): ByteArray? {
+    val inputStream: InputStream = contentResolver.openInputStream(uri) ?: return null
+    val options = BitmapFactory.Options()
+    options.inPreferredConfig = Bitmap.Config.RGB_565
+    val bitmap = BitmapFactory.decodeStream(inputStream, null, options)
+
+    val outputStream = ByteArrayOutputStream()
+    bitmap?.compress(Bitmap.CompressFormat.JPEG, quality, outputStream)
+
+    return outputStream.toByteArray()
 }

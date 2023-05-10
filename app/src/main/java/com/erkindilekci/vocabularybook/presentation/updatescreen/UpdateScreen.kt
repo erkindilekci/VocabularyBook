@@ -1,16 +1,13 @@
-package com.erkindilekci.vocabularybook.presentation.addscreen
+package com.erkindilekci.vocabularybook.presentation.updatescreen
 
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.pm.ActivityInfo
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -32,7 +29,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -41,7 +37,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
@@ -56,19 +51,22 @@ import com.erkindilekci.vocabularybook.presentation.ui.theme.MyBackgroundColor
 import com.erkindilekci.vocabularybook.presentation.ui.theme.MyButtonTextColor
 import com.erkindilekci.vocabularybook.presentation.ui.theme.MyCardColor
 import com.erkindilekci.vocabularybook.presentation.ui.theme.MyTopAppBarColor
-import com.erkindilekci.vocabularybook.presentation.viewmodels.AddScreenViewModel
+import com.erkindilekci.vocabularybook.presentation.viewmodels.UpdateScreenViewModel
+import com.erkindilekci.vocabularybook.util.byteArrayToUri
 import com.erkindilekci.vocabularybook.util.uriToByteArray
-import java.io.ByteArrayOutputStream
-import java.io.InputStream
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun VocabularyAddScreen(
-    viewModel: AddScreenViewModel = hiltViewModel(),
-    navController: NavController
+fun UpdateScreen(
+    viewModel: UpdateScreenViewModel = hiltViewModel(),
+    navController: NavController,
+    id: Int
 ) {
+    LaunchedEffect(key1 = true) {
+        viewModel.getVocabularyById(id)
+    }
+
     val activity = (LocalContext.current) as Activity
     activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
@@ -77,26 +75,42 @@ fun VocabularyAddScreen(
             activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         }
     }
+    val contentResolver = LocalContext.current.contentResolver
 
     val focusManager = LocalFocusManager.current
 
-    var title by rememberSaveable { mutableStateOf("") }
-    var desc by rememberSaveable { mutableStateOf("") }
-    var sentence by rememberSaveable { mutableStateOf("") }
-    var category by rememberSaveable { mutableStateOf("") }
+    val title = viewModel.title
+    val desc = viewModel.desc
+    val sentence = viewModel.sentence
+    val category = viewModel.category
 
-    var selectedImageUri by rememberSaveable { mutableStateOf<Uri?>(null) }
+    var selectedImageUri by remember(key1 = viewModel.image) {
+        mutableStateOf(viewModel.image?.let { byteArrayToUri(it, contentResolver) }
+            ?: Uri.parse("android.resource://com.erkindilekci.vocabularybook/drawable/outline_add_photo_alternate_24"))
+    }
 
     val photoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),
-        onResult = { uri -> selectedImageUri = uri }
+        onResult = { uri ->
+            selectedImageUri = uri
+            selectedImageUri?.let {
+                viewModel.updateImage(uriToByteArray(it, 30, contentResolver))
+            }
+        }
     )
-
-    val contentResolver = LocalContext.current.contentResolver
 
     Scaffold(
         topBar = {
-            VocabularyAddScreenAppBar()
+            UpdateScreenAppBar(
+                title = title,
+                onCloseClicked = { navController.popBackStack() },
+                onDeleteClick = {
+                    viewModel.deleteVocabulary()
+                    navController.navigate("categoryscreen") {
+                        popUpTo("categoryscreen") { inclusive = true }
+                    }
+                }
+            )
         },
         content = {
             Column(
@@ -123,34 +137,24 @@ fun VocabularyAddScreen(
                             .padding(30.dp),
                         contentAlignment = Alignment.Center
                     ) {
-                        if (selectedImageUri == null) {
-                            Image(
-                                painter = painterResource(id = R.drawable.outline_add_photo_alternate_24),
-                                //modifier = Modifier.size(150.dp),
-                                contentDescription = null,
-                                contentScale = ContentScale.Fit,
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .clickable {
-                                        photoPickerLauncher.launch(
-                                            PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
-                                        )
-                                    }
-                            )
-                        } else {
-                            AsyncImage(
-                                model = selectedImageUri,
-                                contentDescription = null,
-                                contentScale = ContentScale.Fit,
-                                modifier = Modifier.fillMaxSize()
-                            )
-                        }
+                        AsyncImage(
+                            model = selectedImageUri,
+                            contentDescription = null,
+                            contentScale = ContentScale.Fit,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .clickable {
+                                    photoPickerLauncher.launch(
+                                        PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                                    )
+                                }
+                        )
                     }
 
 
                     OutlinedTextField(
                         value = title,
-                        onValueChange = { title = it },
+                        onValueChange = { viewModel.updateTitle(it) },
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 12.dp),
@@ -185,7 +189,7 @@ fun VocabularyAddScreen(
 
                     OutlinedTextField(
                         value = desc,
-                        onValueChange = { desc = it },
+                        onValueChange = { viewModel.updateDescription(it) },
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 12.dp),
@@ -218,8 +222,8 @@ fun VocabularyAddScreen(
                     Spacer(modifier = Modifier.height(10.dp))
 
                     OutlinedTextField(
-                        value = sentence,
-                        onValueChange = { sentence = it },
+                        value = sentence ?: "",
+                        onValueChange = { viewModel.updateSentence(it) },
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 12.dp)
@@ -251,7 +255,7 @@ fun VocabularyAddScreen(
 
                     OutlinedTextField(
                         value = category,
-                        onValueChange = { category = it },
+                        onValueChange = { viewModel.updateCategory(it) },
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(start = 12.dp, end = 12.dp, top = 10.dp, bottom = 15.dp),
@@ -288,11 +292,12 @@ fun VocabularyAddScreen(
 
                 Button(
                     onClick = {
-                        val byteArray = selectedImageUri?.let { uriToByteArray(it, 30, contentResolver) }
+                        val byteArray =
+                            selectedImageUri?.let { uriToByteArray(it, 30, contentResolver) }
                         val newVocabularyCard = VocabularyCard(
                             title = title.trim(),
                             desc = desc.trim(),
-                            sentence = sentence.trim(),
+                            sentence = sentence?.trim(),
                             image = byteArray,
                             category = category.trim()
                         )
@@ -304,7 +309,7 @@ fun VocabularyAddScreen(
                         } else if (category.trim().isEmpty()) {
                             Toast.makeText(activity, categoryCant, Toast.LENGTH_LONG).show()
                         } else {
-                            viewModel.addVocabulary(newVocabularyCard)
+                            viewModel.updateVocabulary()
 
                             navController.navigate("categoryscreen") {
                                 popUpTo("categoryscreen") { inclusive = true }
@@ -323,7 +328,7 @@ fun VocabularyAddScreen(
                 )
                 {
                     Text(
-                        text = stringResource(id = R.string.save),
+                        text = stringResource(id = R.string.update),
                         color = Color.White,
                         fontSize = 20.sp,
                         modifier = Modifier.align(

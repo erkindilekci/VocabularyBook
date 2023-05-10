@@ -14,7 +14,9 @@
     <string name="back">Back</string>
     <string name="next">Next</string>
     <string name="close">Close</string>
-    <string name="delete">Delete</string>
+    <string name="delete">Update/Delete</string>
     <string name="sad_face">Sad Face</string>
     <string name="add_vocabulary_card">Add vocabulary card.</string>
+
+    <string name="update">Update</string>
 </resources>

@@ -10,7 +10,11 @@ interface VocRepository {
 
     suspend fun deleteVocabulary(vocabularyCard: VocabularyCard)
 
+    suspend fun updateVocabulary(vocabularyCard: VocabularyCard)
+
     suspend fun deleteAll()
 
     fun getAllCategories(): Flow<List<String>>
+
+    fun getVocabularyById(id: Int): Flow<VocabularyCard>
 }
