@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.pm.ActivityInfo
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,6 +15,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -36,7 +39,7 @@ import com.erkindilekci.vocabularybook.presentation.ui.theme.MyButtonTextColor
 import com.erkindilekci.vocabularybook.presentation.ui.theme.MyCardColor
 import com.erkindilekci.vocabularybook.presentation.viewmodels.DetailScreenViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun DetailScreen(
@@ -86,14 +89,17 @@ fun DetailScreen(
                     verticalArrangement = Arrangement.SpaceAround,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    DetailScreenItem(
-                        modifier = Modifier
-                            .weight(1f)
-                            .fillMaxSize(),
-                        vocabularyCard = vocabularyList[currentIndex],
-                        onDeleteClicked = {
-                            onCardClicked(it)
-                        })
+
+                        DetailScreenItem(
+                            modifier = Modifier
+                                .weight(1f)
+                                .fillMaxSize(),
+                            vocabularyCard = vocabularyList[currentIndex],
+                            onDeleteClicked = {
+                                onCardClicked(it)
+                            },
+                        )
+
 
                     Row(
                         modifier = Modifier

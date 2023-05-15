@@ -24,7 +24,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-/*
+
 @HiltViewModel
 class CategoryScreenViewModel @Inject constructor(
     private val repository: VocRepository,
@@ -75,7 +75,7 @@ class CategoryScreenViewModel @Inject constructor(
         }
     }
 
-}*/
+}
 
 /*
 @HiltViewModel
@@ -200,6 +200,11 @@ class CategoryScreenViewModel @Inject constructor(
     }
 }*/
 
+
+
+
+
+/*
 @HiltViewModel
 class CategoryScreenViewModel @Inject constructor(
     private val repository: VocRepository,
@@ -344,4 +349,4 @@ private fun CategoryScreenState.withMaroonTopAppBarColor(): CategoryScreenState 
 private fun CategoryScreenState.withBlueTopAppBarColor(): CategoryScreenState {
     MyTopAppBarColor = MyTopAppBarColorBlue
     return copy()
-}
+}*/

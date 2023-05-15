@@ -2,6 +2,7 @@ package com.erkindilekci.vocabularybook.presentation.categoryscreen
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,6 +10,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -44,9 +47,8 @@ import com.erkindilekci.vocabularybook.util.ColorFilter
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CategoryScreenAppBar(
-    categoryScreenViewModel: CategoryScreenViewModel
 ) {
-    TopAppBar(
+    /*TopAppBar(
         title = {
             Text(
                 text = stringResource(id = R.string.categories),
@@ -95,5 +97,29 @@ fun CategoryScreenAppBar(
                 }
             }
         }
-    )
+    )*/
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(60.dp)
+            .background(MyTopAppBarColor)
+            .padding(end = 12.dp, start = 30.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = stringResource(id = R.string.categories),
+            style = MaterialTheme.typography.titleMedium,
+            textAlign = TextAlign.Center,
+            fontSize = 23.sp,
+            color = Color.White
+        )
+    }
+}
+
+@Preview
+@Composable
+fun dsa() {
+    CategoryScreenAppBar()
 }

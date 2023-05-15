@@ -142,7 +142,13 @@ fun VocabularyAddScreen(
                                 model = selectedImageUri,
                                 contentDescription = null,
                                 contentScale = ContentScale.Fit,
-                                modifier = Modifier.fillMaxSize()
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .clickable {
+                                        photoPickerLauncher.launch(
+                                            PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                                        )
+                                    }
                             )
                         }
                     }
@@ -288,7 +294,8 @@ fun VocabularyAddScreen(
 
                 Button(
                     onClick = {
-                        val byteArray = selectedImageUri?.let { uriToByteArray(it, 30, contentResolver) }
+                        val byteArray =
+                            selectedImageUri?.let { uriToByteArray(it, 30, contentResolver) }
                         val newVocabularyCard = VocabularyCard(
                             title = title.trim(),
                             desc = desc.trim(),

@@ -22,7 +22,7 @@ interface VocabularyDao {
     @Query("SELECT category FROM vocabulary_table")
     fun getAllCategories(): Flow<List<String>>
 
-    @Query("SELECT * FROM vocabulary_table WHERE category=:category")
+    @Query("SELECT * FROM vocabulary_table WHERE category=:category ORDER BY title")
     fun getVocabulariesByCategory(category: String): Flow<List<VocabularyCard>>
 
     @Query("SELECT * FROM vocabulary_table WHERE id=:id")

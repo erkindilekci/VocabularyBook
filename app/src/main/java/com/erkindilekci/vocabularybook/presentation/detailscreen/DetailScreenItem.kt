@@ -1,5 +1,6 @@
 package com.erkindilekci.vocabularybook.presentation.detailscreen
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -13,6 +14,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
@@ -41,6 +44,7 @@ import com.erkindilekci.vocabularybook.data.local.room.VocabularyCard
 import com.erkindilekci.vocabularybook.presentation.ui.theme.MyCardColor
 import com.erkindilekci.vocabularybook.util.byteArrayToImageBitmap
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DetailScreenItem(
     modifier: Modifier = Modifier,
@@ -99,7 +103,6 @@ fun DetailScreenItem(
             contentAlignment = Alignment.Center
         ) {
             vocabularyCard.image?.let { byteArray ->
-
                 byteArray?.let { byteArrayToImageBitmap(it) }?.let { imageBitmap ->
                     Image(
                         bitmap = imageBitmap,

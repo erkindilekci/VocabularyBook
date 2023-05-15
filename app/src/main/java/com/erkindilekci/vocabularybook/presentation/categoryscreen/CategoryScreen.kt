@@ -52,13 +52,13 @@ fun CategoryScreen(
 
     val categoryList = categoryScreenState.categoryList
 
-    val colorFilter = categoryScreenState.actualColorFilter
+    /*val colorFilter = categoryScreenState.actualColorFilter
     val view = LocalView.current
     LaunchedEffect(key1 = MyStatusBarColor) {
         val window = (view.context as Activity).window
         window.statusBarColor = MyStatusBarColor.toArgb()
         WindowCompat.getInsetsController(window, view)
-    }
+    }*/
 /*
     when(colorFilter) {
         ColorFilter.Purple -> {
@@ -98,7 +98,9 @@ fun CategoryScreen(
 
     Scaffold(
         topBar = {
-            CategoryScreenAppBar(viewModel)
+            //if (MyTopAppBarColor != Color.White) {
+                CategoryScreenAppBar()
+            //}
         },
         content = {
             LazyVerticalGrid(
