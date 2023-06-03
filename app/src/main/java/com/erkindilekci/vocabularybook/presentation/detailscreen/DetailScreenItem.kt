@@ -31,14 +31,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.erkindilekci.vocabularybook.R
-import com.erkindilekci.vocabularybook.data.local.room.VocabularyCard
+import com.erkindilekci.vocabularybook.domain.model.VocabularyCard
 import com.erkindilekci.vocabularybook.presentation.ui.theme.MyCardColor
+import com.erkindilekci.vocabularybook.util.Constants
 import com.erkindilekci.vocabularybook.util.byteArrayToImageBitmap
 
 
@@ -65,7 +67,10 @@ fun DetailScreenItem(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.End
         ) {
-            IconButton(onClick = { isExpanded = !isExpanded }) {
+            IconButton(
+                modifier = Modifier.testTag(Constants.DROPDOWN_MENU),
+                onClick = { isExpanded = !isExpanded }
+            ) {
                 Icon(
                     imageVector = Icons.Filled.MoreVert,
                     contentDescription = null,
@@ -78,6 +83,7 @@ fun DetailScreenItem(
                     onDismissRequest = { isExpanded = false }
                 ) {
                     DropdownMenuItem(
+                        modifier = Modifier.testTag(Constants.DROPDOWN_MENU_ITEM),
                         text = {
                             Text(
                                 text = stringResource(id = R.string.delete),

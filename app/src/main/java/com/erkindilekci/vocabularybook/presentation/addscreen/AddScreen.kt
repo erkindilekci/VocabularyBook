@@ -39,6 +39,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -49,19 +50,21 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.erkindilekci.vocabularybook.R
-import com.erkindilekci.vocabularybook.data.local.room.VocabularyCard
+import com.erkindilekci.vocabularybook.domain.model.VocabularyCard
 import com.erkindilekci.vocabularybook.presentation.ui.theme.MyBackgroundColor
 import com.erkindilekci.vocabularybook.presentation.ui.theme.MyButtonTextColor
 import com.erkindilekci.vocabularybook.presentation.ui.theme.MyCardColor
 import com.erkindilekci.vocabularybook.presentation.ui.theme.MyTopAppBarColor
 import com.erkindilekci.vocabularybook.presentation.viewmodels.AddScreenViewModel
+import com.erkindilekci.vocabularybook.util.Constants
+import com.erkindilekci.vocabularybook.util.byteArrayToUri
 import com.erkindilekci.vocabularybook.util.uriToByteArray
 
 
 @OptIn(ExperimentalMaterial3Api::class)
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "SourceLockedOrientationActivity")
 @Composable
-fun VocabularyAddScreen(
+fun AddScreen(
     viewModel: AddScreenViewModel = hiltViewModel(),
     navController: NavController
 ) {
@@ -76,23 +79,31 @@ fun VocabularyAddScreen(
 
     val focusManager = LocalFocusManager.current
 
-    var title by rememberSaveable { mutableStateOf("") }
-    var desc by rememberSaveable { mutableStateOf("") }
-    var sentence by rememberSaveable { mutableStateOf("") }
-    var category by rememberSaveable { mutableStateOf("") }
+    val contentResolver = LocalContext.current.contentResolver
 
-    var selectedImageUri by rememberSaveable { mutableStateOf<Uri?>(null) }
+    val title = viewModel.title
+    val desc = viewModel.desc
+    val sentence = viewModel.sentence
+    val category = viewModel.category
+
+    var selectedImageUri by remember(key1 = viewModel.image) {
+        mutableStateOf(viewModel.image?.let { byteArrayToUri(it, contentResolver) }
+            ?: Uri.parse("android.resource://com.erkindilekci.vocabularybook/drawable/outline_add_photo_alternate_24"))
+    }
 
     val photoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),
-        onResult = { uri -> selectedImageUri = uri }
+        onResult = { uri ->
+            selectedImageUri = uri
+            selectedImageUri?.let {
+                viewModel.updateImage(uriToByteArray(it, 30, contentResolver))
+            }
+        }
     )
-
-    val contentResolver = LocalContext.current.contentResolver
 
     Scaffold(
         topBar = {
-            VocabularyAddScreenAppBar()
+            AddScreenAppBar()
         },
         content = {
             Column(
@@ -147,11 +158,11 @@ fun VocabularyAddScreen(
                         }
                     }
 
-
                     OutlinedTextField(
                         value = title,
-                        onValueChange = { title = it },
+                        onValueChange = { viewModel.updateTitle(it) },
                         modifier = Modifier
+                            .testTag(Constants.TITLE_TEXT_FIELD)
                             .fillMaxWidth()
                             .padding(horizontal = 12.dp),
                         placeholder = {
@@ -184,8 +195,9 @@ fun VocabularyAddScreen(
 
                     OutlinedTextField(
                         value = desc,
-                        onValueChange = { desc = it },
+                        onValueChange = { viewModel.updateDescription(it) },
                         modifier = Modifier
+                            .testTag(Constants.DESCRIPTION_TEXT_FIELD)
                             .fillMaxWidth()
                             .padding(horizontal = 12.dp),
                         placeholder = {
@@ -217,8 +229,9 @@ fun VocabularyAddScreen(
 
                     OutlinedTextField(
                         value = sentence,
-                        onValueChange = { sentence = it },
+                        onValueChange = { viewModel.updateSentence(it) },
                         modifier = Modifier
+                            .testTag(Constants.SENTENCE_TEXT_FIELD)
                             .fillMaxWidth()
                             .padding(horizontal = 12.dp)
                             .height(55.dp),
@@ -249,8 +262,9 @@ fun VocabularyAddScreen(
 
                     OutlinedTextField(
                         value = category,
-                        onValueChange = { category = it },
+                        onValueChange = { viewModel.updateCategory(it) },
                         modifier = Modifier
+                            .testTag(Constants.CATEGORY_TEXT_FIELD)
                             .fillMaxWidth()
                             .padding(start = 12.dp, end = 12.dp, top = 10.dp, bottom = 15.dp),
                         placeholder = {
@@ -285,16 +299,6 @@ fun VocabularyAddScreen(
 
                 Button(
                     onClick = {
-                        val byteArray =
-                            selectedImageUri?.let { uriToByteArray(it, 30, contentResolver) }
-                        val newVocabularyCard = VocabularyCard(
-                            title = title.trim(),
-                            desc = desc.trim(),
-                            sentence = sentence.trim(),
-                            image = byteArray,
-                            category = category.trim()
-                        )
-
                         if (title.trim().isEmpty()) {
                             Toast.makeText(activity, titleCant, Toast.LENGTH_LONG).show()
                         } else if (desc.trim().isEmpty()) {
@@ -302,7 +306,7 @@ fun VocabularyAddScreen(
                         } else if (category.trim().isEmpty()) {
                             Toast.makeText(activity, categoryCant, Toast.LENGTH_LONG).show()
                         } else {
-                            viewModel.addVocabulary(newVocabularyCard)
+                            viewModel.addVocabulary()
 
                             navController.navigate("categoryscreen") {
                                 popUpTo("categoryscreen") { inclusive = true }
@@ -315,6 +319,7 @@ fun VocabularyAddScreen(
                     ),
                     shape = RoundedCornerShape(15.dp),
                     modifier = Modifier
+                        .testTag(Constants.SAVE_TAG)
                         .weight(0.75f)
                         .padding(bottom = 15.dp)
                         .height(45.dp)

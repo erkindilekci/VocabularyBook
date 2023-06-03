@@ -1,6 +1,6 @@
 package com.erkindilekci.vocabularybook.domain.repository
 
-import com.erkindilekci.vocabularybook.data.local.room.VocabularyCard
+import com.erkindilekci.vocabularybook.domain.model.VocabularyCard
 import kotlinx.coroutines.flow.Flow
 
 interface VocRepository {
@@ -9,10 +9,6 @@ interface VocRepository {
     suspend fun insertVocabulary(vocabularyCard: VocabularyCard)
 
     suspend fun deleteVocabulary(vocabularyCard: VocabularyCard)
-
-    suspend fun updateVocabulary(vocabularyCard: VocabularyCard)
-
-    suspend fun deleteAll()
 
     fun getAllCategories(): Flow<List<String>>
 

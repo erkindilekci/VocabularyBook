@@ -18,12 +18,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.erkindilekci.vocabularybook.R
 import com.erkindilekci.vocabularybook.presentation.ui.theme.MyTopAppBarColor
+import com.erkindilekci.vocabularybook.util.Constants
 
 @Composable
 fun UpdateScreenAppBar(title: String, onCloseClicked: () -> Unit, onDeleteClick: () -> Unit) {
@@ -45,7 +47,10 @@ fun UpdateScreenAppBar(title: String, onCloseClicked: () -> Unit, onDeleteClick:
         )
 
         Row(verticalAlignment = Alignment.CenterVertically) {
-            IconButton(onClick = { onDeleteClick() }) {
+            IconButton(
+                modifier = Modifier.testTag(Constants.DELETE_TAG),
+                onClick = { onDeleteClick() }
+            ) {
                 Icon(
                     imageVector = Icons.Filled.Delete,
                     tint = Color.White,

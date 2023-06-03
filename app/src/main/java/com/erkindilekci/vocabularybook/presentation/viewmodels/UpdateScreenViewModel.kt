@@ -5,27 +5,34 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.erkindilekci.vocabularybook.data.local.room.VocabularyCard
+import com.erkindilekci.vocabularybook.domain.model.VocabularyCard
 import com.erkindilekci.vocabularybook.domain.repository.VocRepository
+import com.erkindilekci.vocabularybook.domain.use_cases.VocabularyUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class UpdateScreenViewModel @Inject constructor(
-    private val repository: VocRepository
+    private val useCases: VocabularyUseCases
 ) : ViewModel() {
 
     var id by mutableStateOf(0)
+        private set
     var title by mutableStateOf("")
+        private set
     var desc by mutableStateOf("")
+        private set
     var sentence by mutableStateOf("")
+        private set
     var image by mutableStateOf<ByteArray?>(null)
+        private set
     var category by mutableStateOf("")
+        private set
 
     fun getVocabularyById(id: Int) {
         viewModelScope.launch {
-            repository.getVocabularyById(id).collect { card ->
+            useCases.getVocabularyByIdUseCase(id).collect { card ->
                 card?.let {
                     this@UpdateScreenViewModel.id = card.id
                     title = card.title
@@ -49,7 +56,7 @@ class UpdateScreenViewModel @Inject constructor(
                 image,
                 category.trim()
             )
-            repository.updateVocabulary(newVocabularyCard)
+            useCases.addVocabularyUseCase(newVocabularyCard)
         }
     }
 
@@ -63,7 +70,7 @@ class UpdateScreenViewModel @Inject constructor(
                 image,
                 category.trim()
             )
-            repository.deleteVocabulary(newVocabularyCard)
+            useCases.deleteVocabularyUseCase(newVocabularyCard)
         }
     }
 

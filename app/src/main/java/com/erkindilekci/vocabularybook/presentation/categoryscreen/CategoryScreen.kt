@@ -17,12 +17,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.erkindilekci.vocabularybook.R
 import com.erkindilekci.vocabularybook.presentation.ui.theme.*
 import com.erkindilekci.vocabularybook.presentation.viewmodels.CategoryScreenViewModel
+import com.erkindilekci.vocabularybook.util.Constants
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -58,6 +60,7 @@ fun CategoryScreen(
         },
         floatingActionButton = {
             ExtendedFloatingActionButton(
+                modifier = Modifier.testTag(Constants.ADD_TAG),
                 contentColor = Color.White, containerColor = MyStatusBarColor,
                 text = { Text(text = stringResource(id = R.string.add), color = Color.White) },
                 onClick = {

@@ -1,4 +1,4 @@
-package com.erkindilekci.vocabularybook.data.local.room
+package com.erkindilekci.vocabularybook.domain.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -16,3 +16,5 @@ data class VocabularyCard(
     val image: ByteArray? = null,
     val category: String
 )
+
+class InvalidVocabularyException(message: String) : Exception(message)

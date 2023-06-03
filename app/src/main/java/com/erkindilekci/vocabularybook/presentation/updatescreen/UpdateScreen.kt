@@ -37,6 +37,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
@@ -51,11 +52,12 @@ import com.erkindilekci.vocabularybook.presentation.ui.theme.MyButtonTextColor
 import com.erkindilekci.vocabularybook.presentation.ui.theme.MyCardColor
 import com.erkindilekci.vocabularybook.presentation.ui.theme.MyTopAppBarColor
 import com.erkindilekci.vocabularybook.presentation.viewmodels.UpdateScreenViewModel
+import com.erkindilekci.vocabularybook.util.Constants
 import com.erkindilekci.vocabularybook.util.byteArrayToUri
 import com.erkindilekci.vocabularybook.util.uriToByteArray
 
 @OptIn(ExperimentalMaterial3Api::class)
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "SourceLockedOrientationActivity")
 @Composable
 fun UpdateScreen(
     viewModel: UpdateScreenViewModel = hiltViewModel(),
@@ -154,6 +156,7 @@ fun UpdateScreen(
                         value = title,
                         onValueChange = { viewModel.updateTitle(it) },
                         modifier = Modifier
+                            .testTag(Constants.TITLE_TEXT_FIELD)
                             .fillMaxWidth()
                             .padding(horizontal = 12.dp),
                         placeholder = {
@@ -188,6 +191,7 @@ fun UpdateScreen(
                         value = desc,
                         onValueChange = { viewModel.updateDescription(it) },
                         modifier = Modifier
+                            .testTag(Constants.DESCRIPTION_TEXT_FIELD)
                             .fillMaxWidth()
                             .padding(horizontal = 12.dp),
                         placeholder = {
@@ -221,6 +225,7 @@ fun UpdateScreen(
                         value = sentence ?: "",
                         onValueChange = { viewModel.updateSentence(it) },
                         modifier = Modifier
+                            .testTag(Constants.SENTENCE_TEXT_FIELD)
                             .fillMaxWidth()
                             .padding(horizontal = 12.dp)
                             .height(55.dp),
@@ -253,6 +258,7 @@ fun UpdateScreen(
                         value = category,
                         onValueChange = { viewModel.updateCategory(it) },
                         modifier = Modifier
+                            .testTag(Constants.CATEGORY_TEXT_FIELD)
                             .fillMaxWidth()
                             .padding(start = 12.dp, end = 12.dp, top = 10.dp, bottom = 15.dp),
                         placeholder = {
@@ -287,9 +293,6 @@ fun UpdateScreen(
 
                 Button(
                     onClick = {
-                        val byteArray =
-                            selectedImageUri?.let { uriToByteArray(it, 30, contentResolver) }
-
                         if (title.trim().isEmpty()) {
                             Toast.makeText(activity, titleCant, Toast.LENGTH_LONG).show()
                         } else if (desc.trim().isEmpty()) {
@@ -310,6 +313,7 @@ fun UpdateScreen(
                     ),
                     shape = RoundedCornerShape(15.dp),
                     modifier = Modifier
+                        .testTag(Constants.UPDATE_TAG)
                         .weight(0.75f)
                         .padding(bottom = 15.dp)
                         .height(45.dp)

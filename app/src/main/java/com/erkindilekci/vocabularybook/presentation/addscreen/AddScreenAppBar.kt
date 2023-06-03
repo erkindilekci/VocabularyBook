@@ -18,7 +18,7 @@ import com.erkindilekci.vocabularybook.R
 import com.erkindilekci.vocabularybook.presentation.ui.theme.MyTopAppBarColor
 
 @Composable
-fun VocabularyAddScreenAppBar() {
+fun AddScreenAppBar() {
     Column(
         modifier = Modifier
             .fillMaxWidth()

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.erkindilekci.vocabularybook.data.repository.DataStoreRepository
 import com.erkindilekci.vocabularybook.domain.repository.VocRepository
+import com.erkindilekci.vocabularybook.domain.use_cases.VocabularyUseCases
 import com.erkindilekci.vocabularybook.presentation.viewmodels.screenstates.CategoryScreenState
 import com.erkindilekci.vocabularybook.util.ColorFilter
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CategoryScreenViewModel @Inject constructor(
-    private val repository: VocRepository,
+    private val useCases: VocabularyUseCases,
     private val dataStoreRepository: DataStoreRepository
 ) : ViewModel() {
 
@@ -28,12 +29,11 @@ class CategoryScreenViewModel @Inject constructor(
 
     init {
         getAllCategories()
-        readColorFilter()
     }
 
     fun getAllCategories() {
         viewModelScope.launch {
-            repository.getAllCategories().collect { list ->
+            useCases.getAllCategoriesUseCase().collect { list ->
                 val categoryList = list.toSet()
 
                 _categoryState.update {

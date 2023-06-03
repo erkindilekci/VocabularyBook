@@ -1,7 +1,7 @@
 package com.erkindilekci.vocabularybook.data.repository
 
-import com.erkindilekci.vocabularybook.data.local.room.VocabularyCard
-import com.erkindilekci.vocabularybook.data.local.room.VocabularyDao
+import com.erkindilekci.vocabularybook.domain.model.VocabularyCard
+import com.erkindilekci.vocabularybook.data.datasource.VocabularyDao
 import com.erkindilekci.vocabularybook.domain.repository.VocRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -19,14 +19,6 @@ class VocRepositoryImpl @Inject constructor(
 
     override suspend fun deleteVocabulary(vocabularyCard: VocabularyCard) {
         dao.deleteVocabulary(vocabularyCard)
-    }
-
-    override suspend fun updateVocabulary(vocabularyCard: VocabularyCard) {
-        dao.updateVocabulary(vocabularyCard)
-    }
-
-    override suspend fun deleteAll() {
-        dao.deleteAll()
     }
 
     override fun getAllCategories(): Flow<List<String>> {

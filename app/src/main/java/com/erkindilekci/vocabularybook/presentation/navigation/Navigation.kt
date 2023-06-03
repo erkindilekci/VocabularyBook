@@ -7,7 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.erkindilekci.vocabularybook.presentation.addscreen.VocabularyAddScreen
+import com.erkindilekci.vocabularybook.presentation.addscreen.AddScreen
 import com.erkindilekci.vocabularybook.presentation.categoryscreen.CategoryScreen
 import com.erkindilekci.vocabularybook.presentation.detailscreen.DetailScreen
 import com.erkindilekci.vocabularybook.presentation.updatescreen.UpdateScreen
@@ -20,7 +20,7 @@ fun Navigation() {
             CategoryScreen(navController = navNavController)
         }
         composable("addscreen") {
-            VocabularyAddScreen(navController = navNavController)
+            AddScreen(navController = navNavController)
         }
         composable("detailscreen/{category}", arguments = listOf(
             navArgument("category") { type = NavType.StringType }

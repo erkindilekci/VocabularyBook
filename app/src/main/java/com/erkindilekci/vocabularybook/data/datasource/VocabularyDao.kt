@@ -1,4 +1,4 @@
-package com.erkindilekci.vocabularybook.data.local.room
+package com.erkindilekci.vocabularybook.data.datasource
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -6,11 +6,12 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import com.erkindilekci.vocabularybook.domain.model.VocabularyCard
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface VocabularyDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertVocabulary(card: VocabularyCard)
 
     @Update

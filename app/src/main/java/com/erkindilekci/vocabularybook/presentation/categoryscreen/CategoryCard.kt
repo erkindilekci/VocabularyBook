@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.sp
 import com.erkindilekci.vocabularybook.presentation.ui.theme.MyTopAppBarColor
 
 @Composable
-fun CategoryCard(category: String, modifier: Modifier = Modifier, onCategoryClicked: () -> Unit) {
+fun CategoryCard(category: String, onCategoryClicked: () -> Unit) {
     Column(
         modifier = Modifier
             .padding(top = 10.dp, start = 10.dp, end = 10.dp, bottom = 10.dp)
