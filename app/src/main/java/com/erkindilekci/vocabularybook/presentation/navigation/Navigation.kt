@@ -13,7 +13,7 @@ import com.erkindilekci.vocabularybook.presentation.detailscreen.DetailScreen
 import com.erkindilekci.vocabularybook.presentation.updatescreen.UpdateScreen
 
 @Composable
-fun ComposeNavigation() {
+fun Navigation() {
     val navNavController = rememberNavController()
     NavHost(navController = navNavController, startDestination = "categoryscreen") {
         composable("categoryscreen") {
@@ -32,7 +32,7 @@ fun ComposeNavigation() {
             navArgument("id") { type = NavType.IntType }
         )) {
             val id = remember { it.arguments?.getInt("id") }
-            UpdateScreen(navController = navNavController, id = id ?:0)
+            UpdateScreen(navController = navNavController, id = id ?: 0)
         }
     }
 }

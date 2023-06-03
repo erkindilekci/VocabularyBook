@@ -1,7 +1,5 @@
 package com.erkindilekci.vocabularybook.data.local.room
 
-import android.graphics.Bitmap
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -13,8 +11,8 @@ data class VocabularyCard(
     val id: Int = 0,
     val title: String,
     val desc: String,
-    val sentence: String?= null,
-   @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
-   val image: ByteArray? = null,
+    val sentence: String? = null,
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
+    val image: ByteArray? = null,
     val category: String
 )

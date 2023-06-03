@@ -1,6 +1,5 @@
 package com.erkindilekci.vocabularybook.presentation.detailscreen
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -14,8 +13,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
@@ -44,7 +41,7 @@ import com.erkindilekci.vocabularybook.data.local.room.VocabularyCard
 import com.erkindilekci.vocabularybook.presentation.ui.theme.MyCardColor
 import com.erkindilekci.vocabularybook.util.byteArrayToImageBitmap
 
-@OptIn(ExperimentalFoundationApi::class)
+
 @Composable
 fun DetailScreenItem(
     modifier: Modifier = Modifier,
@@ -53,13 +50,14 @@ fun DetailScreenItem(
 ) {
     var isExpanded by remember { mutableStateOf(false) }
 
+    val center = if (vocabularyCard.image == null) Arrangement.Center else Arrangement.SpaceBetween
     Column(
         modifier = modifier
             .fillMaxSize()
-            //.weight(8f)
             .padding(start = 20.dp, end = 20.dp, top = 30.dp, bottom = 20.dp)
             .clip(RoundedCornerShape(20.dp))
-            .background(MyCardColor)
+            .background(MyCardColor),
+        verticalArrangement = center
     ) {
         Row(
             modifier = Modifier
@@ -97,9 +95,9 @@ fun DetailScreenItem(
 
         Box(
             modifier = Modifier
-                .weight(if (vocabularyCard.image == null) 2.85f else 8f)
-                .fillMaxWidth()
-                .padding(30.dp),
+                .weight(if (vocabularyCard.image == null) 2.85f else 7f)
+                .fillMaxSize()
+                .padding(top = 30.dp, start = 25.dp, end = 25.dp, bottom = 10.dp),
             contentAlignment = Alignment.Center
         ) {
             vocabularyCard.image?.let { byteArray ->
@@ -111,7 +109,7 @@ fun DetailScreenItem(
                         modifier = Modifier
                             .fillMaxSize()
                             .widthIn(min = 200.dp)
-                            .heightIn(min = 70.dp)
+                            .heightIn(min = 80.dp)
                     )
                 }
             }

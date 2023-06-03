@@ -2,7 +2,6 @@ package com.erkindilekci.vocabularybook.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.erkindilekci.vocabularybook.data.local.room.VocabularyCard
 import com.erkindilekci.vocabularybook.domain.repository.VocRepository
 import com.erkindilekci.vocabularybook.presentation.viewmodels.screenstates.DetailScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,12 +29,6 @@ class DetailScreenViewModel @Inject constructor(
                     )
                 }
             }
-        }
-    }
-
-    fun deleteVocabulary(vocabularyCard: VocabularyCard) {
-        viewModelScope.launch {
-            repository.deleteVocabulary(vocabularyCard)
         }
     }
 }

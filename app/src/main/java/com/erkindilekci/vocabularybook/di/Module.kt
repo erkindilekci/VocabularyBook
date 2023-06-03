@@ -2,8 +2,6 @@ package com.erkindilekci.vocabularybook.di
 
 import android.content.Context
 import androidx.room.Room
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.erkindilekci.vocabularybook.data.local.room.VocabularyDao
 import com.erkindilekci.vocabularybook.data.local.room.VocabularyDatabase
 import com.erkindilekci.vocabularybook.data.repository.VocRepositoryImpl

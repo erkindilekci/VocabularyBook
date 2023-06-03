@@ -41,14 +41,28 @@ class UpdateScreenViewModel @Inject constructor(
 
     fun updateVocabulary() {
         viewModelScope.launch {
-            val newVocabularyCard = VocabularyCard(id, title.trim(), desc.trim(), sentence.trim(), image, category.trim())
+            val newVocabularyCard = VocabularyCard(
+                id,
+                title.trim(),
+                desc.trim(),
+                sentence.trim(),
+                image,
+                category.trim()
+            )
             repository.updateVocabulary(newVocabularyCard)
         }
     }
 
     fun deleteVocabulary() {
         viewModelScope.launch {
-            val newVocabularyCard = VocabularyCard(id, title.trim(), desc.trim(), sentence.trim(), image, category.trim())
+            val newVocabularyCard = VocabularyCard(
+                id,
+                title.trim(),
+                desc.trim(),
+                sentence.trim(),
+                image,
+                category.trim()
+            )
             repository.deleteVocabulary(newVocabularyCard)
         }
     }

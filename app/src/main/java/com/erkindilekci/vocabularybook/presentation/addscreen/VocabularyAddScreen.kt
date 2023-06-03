@@ -3,8 +3,6 @@ package com.erkindilekci.vocabularybook.presentation.addscreen
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.pm.ActivityInfo
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -58,8 +56,6 @@ import com.erkindilekci.vocabularybook.presentation.ui.theme.MyCardColor
 import com.erkindilekci.vocabularybook.presentation.ui.theme.MyTopAppBarColor
 import com.erkindilekci.vocabularybook.presentation.viewmodels.AddScreenViewModel
 import com.erkindilekci.vocabularybook.util.uriToByteArray
-import java.io.ByteArrayOutputStream
-import java.io.InputStream
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -117,7 +113,6 @@ fun VocabularyAddScreen(
                 ) {
                     Box(
                         modifier = Modifier
-                            //.height(150.dp)
                             .weight(1f)
                             .fillMaxWidth()
                             .padding(30.dp),
@@ -126,7 +121,6 @@ fun VocabularyAddScreen(
                         if (selectedImageUri == null) {
                             Image(
                                 painter = painterResource(id = R.drawable.outline_add_photo_alternate_24),
-                                //modifier = Modifier.size(150.dp),
                                 contentDescription = null,
                                 contentScale = ContentScale.Fit,
                                 modifier = Modifier
@@ -160,7 +154,6 @@ fun VocabularyAddScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 12.dp),
-                        //.height(55.dp),
                         placeholder = {
                             Text(
                                 text = stringResource(id = R.string.title),
@@ -195,7 +188,6 @@ fun VocabularyAddScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 12.dp),
-                        //.height(55.dp),
                         placeholder = {
                             Text(
                                 text = stringResource(id = R.string.description),
@@ -261,7 +253,6 @@ fun VocabularyAddScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(start = 12.dp, end = 12.dp, top = 10.dp, bottom = 15.dp),
-                        //.height(55.dp)
                         placeholder = {
                             Text(
                                 text = stringResource(id = R.string.category),

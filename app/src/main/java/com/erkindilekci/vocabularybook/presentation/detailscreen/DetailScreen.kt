@@ -38,6 +38,7 @@ import com.erkindilekci.vocabularybook.presentation.ui.theme.MyBackgroundColor
 import com.erkindilekci.vocabularybook.presentation.ui.theme.MyButtonTextColor
 import com.erkindilekci.vocabularybook.presentation.ui.theme.MyCardColor
 import com.erkindilekci.vocabularybook.presentation.viewmodels.DetailScreenViewModel
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -58,7 +59,6 @@ fun DetailScreen(
 
     val detailScreenState = viewModel.detailState.collectAsState().value
 
-    var currentIndex by remember { mutableStateOf(0) }
     var vocabularyList = detailScreenState.vocabularyList
 
     LaunchedEffect(key1 = true) {
@@ -78,93 +78,103 @@ fun DetailScreen(
                         popUpTo("categoryscreen") { inclusive = true }
                     }
                 })
-        },
-        content = {
+        }, content = {
             if (vocabularyList.isNotEmpty()) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(top = 50.dp)
-                        .background(MyBackgroundColor),
-                    verticalArrangement = Arrangement.SpaceAround,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
 
+                val pagerState = rememberPagerState()
+                val scope = rememberCoroutineScope()
+
+                HorizontalPager(
+                    pageCount = vocabularyList.size,
+                    state = pagerState
+                ) { index ->
+                    val vocabulary = vocabularyList[index]
+
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(top = 50.dp)
+                            .background(MyBackgroundColor),
+                        verticalArrangement = Arrangement.SpaceAround,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
                         DetailScreenItem(
                             modifier = Modifier
-                                .weight(1f)
-                                .fillMaxSize(),
-                            vocabularyCard = vocabularyList[currentIndex],
+                                .weight(1f),
+                            vocabularyCard = vocabulary,
                             onDeleteClicked = {
                                 onCardClicked(it)
-                            },
+                            }
                         )
 
-
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 20.dp),
-                        //.weight(1f),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Button(
-                            onClick = {
-                                if (currentIndex > 0) {
-                                    currentIndex -= 1
-                                }
-                            },
-                            colors = ButtonDefaults.buttonColors(
-                                contentColor = MyCardColor,
-                                containerColor = MyBackgroundColor
-                            ),
-                            shape = RoundedCornerShape(15.dp),
+                        Row(
                             modifier = Modifier
-                                .weight(0.75f)
-                                .padding(bottom = 15.dp)
-                                .height(45.dp),
-                            border = BorderStroke(2.dp, MyCardColor),
-                            enabled = currentIndex > 0
-                        )
-                        {
-                            Text(
-                                text = stringResource(id = R.string.back),
-                                fontSize = 20.sp,
-                                color = Color.White,
-                                modifier = Modifier.align(
-                                    Alignment.CenterVertically
-                                )
+                                .fillMaxWidth()
+                                .padding(horizontal = 20.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Button(
+                                onClick = {
+                                    scope.launch {
+                                        pagerState.animateScrollToPage(
+                                            pagerState.currentPage - 1
+                                        )
+                                    }
+                                },
+                                colors = ButtonDefaults.buttonColors(
+                                    contentColor = MyCardColor,
+                                    containerColor = MyBackgroundColor
+                                ),
+                                shape = RoundedCornerShape(15.dp),
+                                modifier = Modifier
+                                    .weight(0.75f)
+                                    .padding(bottom = 15.dp)
+                                    .height(45.dp),
+                                border = BorderStroke(2.dp, MyCardColor),
+                                enabled = pagerState.canScrollBackward
                             )
-                        }
-
-                        Spacer(modifier = Modifier.width(16.dp))
-
-                        Button(
-                            onClick = {
-                                if (currentIndex < vocabularyList.size - 1) {
-                                    currentIndex += 1
-                                }
-                            },
-                            colors = ButtonDefaults.buttonColors(
-                                contentColor = MyButtonTextColor,
-                                containerColor = MyCardColor
-                            ),
-                            shape = RoundedCornerShape(15.dp),
-                            modifier = Modifier
-                                .weight(0.75f)
-                                .padding(bottom = 15.dp)
-                                .height(45.dp),
-                            enabled = currentIndex < vocabularyList.size - 1
-                        )
-                        {
-                            Text(
-                                text = stringResource(id = R.string.next),
-                                color = Color.White,
-                                fontSize = 20.sp,
-                                modifier = Modifier.align(
-                                    Alignment.CenterVertically
+                            {
+                                Text(
+                                    text = stringResource(id = R.string.back),
+                                    fontSize = 20.sp,
+                                    color = Color.White,
+                                    modifier = Modifier.align(
+                                        Alignment.CenterVertically
+                                    )
                                 )
+                            }
+
+                            Spacer(modifier = Modifier.width(16.dp))
+
+                            Button(
+                                onClick = {
+                                    scope.launch {
+                                        pagerState.animateScrollToPage(
+                                            pagerState.currentPage + 1
+                                        )
+                                    }
+                                },
+                                colors = ButtonDefaults.buttonColors(
+                                    contentColor = MyButtonTextColor,
+                                    containerColor = MyCardColor
+                                ),
+                                shape = RoundedCornerShape(15.dp),
+                                modifier = Modifier
+                                    .weight(0.75f)
+                                    .padding(bottom = 15.dp)
+                                    .height(45.dp),
+                                enabled = pagerState.canScrollForward
                             )
+                            {
+                                Text(
+                                    text = stringResource(id = R.string.next),
+                                    color = Color.White,
+                                    fontSize = 20.sp,
+                                    modifier = Modifier.align(
+                                        Alignment.CenterVertically
+                                    )
+                                )
+                            }
                         }
                     }
                 }

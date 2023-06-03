@@ -46,7 +46,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.erkindilekci.vocabularybook.R
-import com.erkindilekci.vocabularybook.data.local.room.VocabularyCard
 import com.erkindilekci.vocabularybook.presentation.ui.theme.MyBackgroundColor
 import com.erkindilekci.vocabularybook.presentation.ui.theme.MyButtonTextColor
 import com.erkindilekci.vocabularybook.presentation.ui.theme.MyCardColor
@@ -131,7 +130,6 @@ fun UpdateScreen(
                 ) {
                     Box(
                         modifier = Modifier
-                            //.height(150.dp)
                             .weight(1f)
                             .fillMaxWidth()
                             .padding(30.dp),
@@ -158,7 +156,6 @@ fun UpdateScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 12.dp),
-                        //.height(55.dp),
                         placeholder = {
                             Text(
                                 text = stringResource(id = R.string.title),
@@ -193,7 +190,6 @@ fun UpdateScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 12.dp),
-                        //.height(55.dp),
                         placeholder = {
                             Text(
                                 text = stringResource(id = R.string.description),
@@ -259,7 +255,6 @@ fun UpdateScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(start = 12.dp, end = 12.dp, top = 10.dp, bottom = 15.dp),
-                        //.height(55.dp)
                         placeholder = {
                             Text(
                                 text = stringResource(id = R.string.category),
@@ -294,13 +289,6 @@ fun UpdateScreen(
                     onClick = {
                         val byteArray =
                             selectedImageUri?.let { uriToByteArray(it, 30, contentResolver) }
-                        val newVocabularyCard = VocabularyCard(
-                            title = title.trim(),
-                            desc = desc.trim(),
-                            sentence = sentence?.trim(),
-                            image = byteArray,
-                            category = category.trim()
-                        )
 
                         if (title.trim().isEmpty()) {
                             Toast.makeText(activity, titleCant, Toast.LENGTH_LONG).show()
