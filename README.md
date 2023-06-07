@@ -14,11 +14,11 @@
 
 # UI
 <div style="display: flex;">
-    <img src="https://raw.githubusercontent.com/erkindil/GithubRepositoryEdit/main/vb1.jpg" width="200">
-    <img src="https://raw.githubusercontent.com/erkindil/GithubRepositoryEdit/main/vb2.jpg" width="200">
-  <img src="https://raw.githubusercontent.com/erkindil/GithubRepositoryEdit/main/vb3.jpg" width="200">
-  <img src="https://raw.githubusercontent.com/erkindil/GithubRepositoryEdit/main/vb4.jpg" width="200">
-  <img src="https://raw.githubusercontent.com/erkindil/GithubRepositoryEdit/main/vb5.jpg" width="200">
+    <img src="https://raw.githubusercontent.com/erkindil/GithubRepositoryEdit/main/vb1.jpg" width="160">
+    <img src="https://raw.githubusercontent.com/erkindil/GithubRepositoryEdit/main/vb2.jpg" width="160">
+  <img src="https://raw.githubusercontent.com/erkindil/GithubRepositoryEdit/main/vb3.jpg" width="160">
+  <img src="https://raw.githubusercontent.com/erkindil/GithubRepositoryEdit/main/vb4.jpg" width="160">
+  <img src="https://raw.githubusercontent.com/erkindil/GithubRepositoryEdit/main/vb5.jpg" width="160">
 </div>
 
 ## Download
