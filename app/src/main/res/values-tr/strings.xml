@@ -19,4 +19,6 @@
     <string name="add_vocabulary_card">Kelime kartı ekle.</string>
 
     <string name="update">Güncelle</string>
+    <string name="denied_message">Give this permission to use app properly!</string>
+    <string name="rationale_message">To use this app\'s functionalities, you need to give permission.</string>
 </resources>

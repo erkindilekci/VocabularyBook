@@ -23,7 +23,11 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -81,11 +85,16 @@ fun DetailScreen(
         }, content = {
             if (vocabularyList.isNotEmpty()) {
 
-                val pagerState = rememberPagerState()
+                val pagerState = rememberPagerState(
+                    initialPage = 0,
+                    initialPageOffsetFraction = 0f
+                ) {
+                    vocabularyList.size
+                }
+
                 val scope = rememberCoroutineScope()
 
                 HorizontalPager(
-                    pageCount = vocabularyList.size,
                     state = pagerState
                 ) { index ->
                     val vocabulary = vocabularyList[index]

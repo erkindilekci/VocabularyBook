@@ -1,4 +1,4 @@
-package com.erkindilekci.vocabularybook.presentation.navigation
+package com.erkindilekci.vocabularybook.presentation.util.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember

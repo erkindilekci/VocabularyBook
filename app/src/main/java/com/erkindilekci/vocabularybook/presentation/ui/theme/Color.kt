@@ -10,13 +10,6 @@ val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
-//var MyStatusBarColor = Color(0xFFFFFFFF) //600
-////var MyTopAppBarColor = Color(0xFF000000) //500
-//var MyTopAppBarColor = Color.White
-//var MyBackgroundColor = Color(0xFFB3A5C6) //200
-//var MyButtonTextColor = Color(0xFFD1C9DD) //100
-//var MyCardColor = Color(0xFF8362Af) //400
-
 var MyStatusBarColor = Color(0xFF5C3A92)//600
 var MyTopAppBarColor = Color(0xFF6F48A1)
 var MyBackgroundColor = Color(0xFF987ebd) //200

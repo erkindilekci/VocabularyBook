@@ -9,7 +9,7 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import com.erkindilekci.vocabularybook.MainActivity
 import com.erkindilekci.vocabularybook.di.AppModule
-import com.erkindilekci.vocabularybook.presentation.navigation.Navigation
+import com.erkindilekci.vocabularybook.presentation.util.navigation.Navigation
 import com.erkindilekci.vocabularybook.presentation.ui.theme.VocabularyBookTheme
 import com.erkindilekci.vocabularybook.util.Constants
 import dagger.hilt.android.testing.HiltAndroidRule
