@@ -2,7 +2,7 @@
     <string name="app_name">Vocabulary Book</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
-    <string name="sentence">Sentence</string>
+    <string name="sentence">Sentence (optional)</string>
     <string name="category">Category</string>
     <string name="title_cant">Title cannot be empty!</string>
     <string name="desc_cant">Description cannot be empty!</string>
@@ -21,4 +21,6 @@
     <string name="update">Update</string>
     <string name="denied_message">Give this permission to use app properly!</string>
     <string name="rationale_message">To use this app\'s functionalities, you need to give permission.</string>
+    <string name="description_in_other_language_optional">Meaning in other language (optional)</string>
+    <string name="empty_please_add_meaning">Empty, please add meaning</string>
 </resources>

@@ -3,7 +3,6 @@ package com.erkindilekci.vocabularybook.presentation.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.erkindilekci.vocabularybook.data.repository.DataStoreRepository
-import com.erkindilekci.vocabularybook.domain.repository.VocRepository
 import com.erkindilekci.vocabularybook.domain.use_cases.VocabularyUseCases
 import com.erkindilekci.vocabularybook.presentation.viewmodels.screenstates.CategoryScreenState
 import com.erkindilekci.vocabularybook.util.ColorFilter

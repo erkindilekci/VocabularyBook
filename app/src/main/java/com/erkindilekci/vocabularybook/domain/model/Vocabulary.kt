@@ -11,6 +11,7 @@ data class VocabularyCard(
     val id: Int = 0,
     val title: String,
     val desc: String,
+    val meaning: String? = null,
     val sentence: String? = null,
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
     val image: ByteArray? = null,

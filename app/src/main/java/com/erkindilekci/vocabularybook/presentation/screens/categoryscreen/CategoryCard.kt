@@ -1,4 +1,4 @@
-package com.erkindilekci.vocabularybook.presentation.categoryscreen
+package com.erkindilekci.vocabularybook.presentation.screens.categoryscreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.erkindilekci.vocabularybook.presentation.ui.theme.MyTopAppBarColor
+import com.erkindilekci.vocabularybook.presentation.util.ui.theme.MyTopAppBarColor
 
 @Composable
 fun CategoryCard(category: String, onCategoryClicked: () -> Unit) {

@@ -1,4 +1,4 @@
-package com.erkindilekci.vocabularybook.presentation.ui.theme
+package com.erkindilekci.vocabularybook.presentation.util.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

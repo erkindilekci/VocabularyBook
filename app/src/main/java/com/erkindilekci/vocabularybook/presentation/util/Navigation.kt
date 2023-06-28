@@ -1,4 +1,4 @@
-package com.erkindilekci.vocabularybook.presentation.util.navigation
+package com.erkindilekci.vocabularybook.presentation.util
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -7,10 +7,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.erkindilekci.vocabularybook.presentation.addscreen.AddScreen
-import com.erkindilekci.vocabularybook.presentation.categoryscreen.CategoryScreen
-import com.erkindilekci.vocabularybook.presentation.detailscreen.DetailScreen
-import com.erkindilekci.vocabularybook.presentation.updatescreen.UpdateScreen
+import com.erkindilekci.vocabularybook.presentation.screens.addscreen.AddScreen
+import com.erkindilekci.vocabularybook.presentation.screens.categoryscreen.CategoryScreen
+import com.erkindilekci.vocabularybook.presentation.screens.detailscreen.DetailScreen
+import com.erkindilekci.vocabularybook.presentation.screens.updatescreen.UpdateScreen
 
 @Composable
 fun Navigation() {

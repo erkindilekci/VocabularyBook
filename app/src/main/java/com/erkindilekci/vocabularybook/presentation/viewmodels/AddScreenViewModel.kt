@@ -6,7 +6,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.erkindilekci.vocabularybook.domain.model.VocabularyCard
-import com.erkindilekci.vocabularybook.domain.repository.VocRepository
 import com.erkindilekci.vocabularybook.domain.use_cases.VocabularyUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -21,6 +20,8 @@ class AddScreenViewModel @Inject constructor(
         private set
     var desc by mutableStateOf("")
         private set
+    var meaning by mutableStateOf("")
+        private set
     var sentence by mutableStateOf("")
         private set
     var image by mutableStateOf<ByteArray?>(null)
@@ -34,6 +35,7 @@ class AddScreenViewModel @Inject constructor(
             desc = desc,
             sentence = sentence,
             image = image,
+            meaning = meaning,
             category = category
         )
 
@@ -48,6 +50,10 @@ class AddScreenViewModel @Inject constructor(
 
     fun updateDescription(newDesc: String) {
         desc = newDesc
+    }
+
+    fun updateMeaning(newMeaning: String) {
+        meaning = newMeaning
     }
 
     fun updateSentence(newSentence: String) {

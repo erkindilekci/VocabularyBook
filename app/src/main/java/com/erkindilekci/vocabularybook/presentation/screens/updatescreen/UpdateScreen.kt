@@ -1,4 +1,4 @@
-package com.erkindilekci.vocabularybook.presentation.addscreen
+package com.erkindilekci.vocabularybook.presentation.screens.updatescreen
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -30,7 +29,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,7 +38,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
@@ -50,24 +47,27 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.erkindilekci.vocabularybook.R
-import com.erkindilekci.vocabularybook.domain.model.VocabularyCard
-import com.erkindilekci.vocabularybook.presentation.ui.theme.MyBackgroundColor
-import com.erkindilekci.vocabularybook.presentation.ui.theme.MyButtonTextColor
-import com.erkindilekci.vocabularybook.presentation.ui.theme.MyCardColor
-import com.erkindilekci.vocabularybook.presentation.ui.theme.MyTopAppBarColor
-import com.erkindilekci.vocabularybook.presentation.viewmodels.AddScreenViewModel
+import com.erkindilekci.vocabularybook.presentation.util.ui.theme.MyBackgroundColor
+import com.erkindilekci.vocabularybook.presentation.util.ui.theme.MyButtonTextColor
+import com.erkindilekci.vocabularybook.presentation.util.ui.theme.MyCardColor
+import com.erkindilekci.vocabularybook.presentation.util.ui.theme.MyTopAppBarColor
+import com.erkindilekci.vocabularybook.presentation.viewmodels.UpdateScreenViewModel
 import com.erkindilekci.vocabularybook.util.Constants
 import com.erkindilekci.vocabularybook.util.byteArrayToUri
 import com.erkindilekci.vocabularybook.util.uriToByteArray
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "SourceLockedOrientationActivity")
 @Composable
-fun AddScreen(
-    viewModel: AddScreenViewModel = hiltViewModel(),
-    navController: NavController
+fun UpdateScreen(
+    viewModel: UpdateScreenViewModel = hiltViewModel(),
+    navController: NavController,
+    id: Int
 ) {
+    LaunchedEffect(key1 = true) {
+        viewModel.getVocabularyById(id)
+    }
+
     val activity = (LocalContext.current) as Activity
     activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
@@ -76,13 +76,13 @@ fun AddScreen(
             activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         }
     }
+    val contentResolver = LocalContext.current.contentResolver
 
     val focusManager = LocalFocusManager.current
 
-    val contentResolver = LocalContext.current.contentResolver
-
     val title = viewModel.title
     val desc = viewModel.desc
+    val meaning = viewModel.meaning
     val sentence = viewModel.sentence
     val category = viewModel.category
 
@@ -103,7 +103,16 @@ fun AddScreen(
 
     Scaffold(
         topBar = {
-            AddScreenAppBar()
+            UpdateScreenAppBar(
+                title = title,
+                onCloseClicked = { navController.popBackStack() },
+                onDeleteClick = {
+                    viewModel.deleteVocabulary()
+                    navController.navigate("categoryscreen") {
+                        popUpTo("categoryscreen") { inclusive = true }
+                    }
+                }
+            )
         },
         content = {
             Column(
@@ -129,34 +138,20 @@ fun AddScreen(
                             .padding(30.dp),
                         contentAlignment = Alignment.Center
                     ) {
-                        if (selectedImageUri == null) {
-                            Image(
-                                painter = painterResource(id = R.drawable.outline_add_photo_alternate_24),
-                                contentDescription = null,
-                                contentScale = ContentScale.Fit,
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .clickable {
-                                        photoPickerLauncher.launch(
-                                            PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
-                                        )
-                                    }
-                            )
-                        } else {
-                            AsyncImage(
-                                model = selectedImageUri,
-                                contentDescription = null,
-                                contentScale = ContentScale.Fit,
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .clickable {
-                                        photoPickerLauncher.launch(
-                                            PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
-                                        )
-                                    }
-                            )
-                        }
+                        AsyncImage(
+                            model = selectedImageUri,
+                            contentDescription = null,
+                            contentScale = ContentScale.Fit,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .clickable {
+                                    photoPickerLauncher.launch(
+                                        PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                                    )
+                                }
+                        )
                     }
+
 
                     OutlinedTextField(
                         value = title,
@@ -228,7 +223,40 @@ fun AddScreen(
                     Spacer(modifier = Modifier.height(10.dp))
 
                     OutlinedTextField(
-                        value = sentence,
+                        value = meaning ?: "",
+                        onValueChange = { viewModel.updateMeaning(it) },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 12.dp),
+                        placeholder = {
+                            Text(
+                                text = stringResource(R.string.description_in_other_language_optional),
+                                color = MyCardColor
+                            )
+                        },
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            containerColor = Color.White,
+                            textColor = MyTopAppBarColor,
+                            cursorColor = MyTopAppBarColor,
+                            placeholderColor = Color.Transparent,
+                            focusedBorderColor = Color.Transparent,
+                            unfocusedBorderColor = Color.Transparent,
+                            disabledBorderColor = Color.Transparent
+                        ),
+                        singleLine = true,
+                        shape = RoundedCornerShape(15.dp),
+                        keyboardActions = KeyboardActions(
+                            onNext = { focusManager.moveFocus(FocusDirection.Down) }
+                        ),
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Next
+                        )
+                    )
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    OutlinedTextField(
+                        value = sentence ?: "",
                         onValueChange = { viewModel.updateSentence(it) },
                         modifier = Modifier
                             .testTag(Constants.SENTENCE_TEXT_FIELD)
@@ -306,7 +334,7 @@ fun AddScreen(
                         } else if (category.trim().isEmpty()) {
                             Toast.makeText(activity, categoryCant, Toast.LENGTH_LONG).show()
                         } else {
-                            viewModel.addVocabulary()
+                            viewModel.updateVocabulary()
 
                             navController.navigate("categoryscreen") {
                                 popUpTo("categoryscreen") { inclusive = true }
@@ -319,14 +347,14 @@ fun AddScreen(
                     ),
                     shape = RoundedCornerShape(15.dp),
                     modifier = Modifier
-                        .testTag(Constants.SAVE_TAG)
+                        .testTag(Constants.UPDATE_TAG)
                         .weight(0.75f)
                         .padding(bottom = 15.dp)
                         .height(45.dp)
                 )
                 {
                     Text(
-                        text = stringResource(id = R.string.save),
+                        text = stringResource(id = R.string.update),
                         color = Color.White,
                         fontSize = 20.sp,
                         modifier = Modifier.align(

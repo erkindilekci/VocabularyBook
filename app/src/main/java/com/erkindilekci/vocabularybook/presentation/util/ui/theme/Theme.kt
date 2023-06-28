@@ -1,4 +1,4 @@
-package com.erkindilekci.vocabularybook.presentation.ui.theme
+package com.erkindilekci.vocabularybook.presentation.util.ui.theme
 
 import android.app.Activity
 import android.app.StatusBarManager

@@ -1,4 +1,4 @@
-package com.erkindilekci.vocabularybook.presentation.detailscreen
+package com.erkindilekci.vocabularybook.presentation.screens.detailscreen
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -38,9 +38,9 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.erkindilekci.vocabularybook.R
-import com.erkindilekci.vocabularybook.presentation.ui.theme.MyBackgroundColor
-import com.erkindilekci.vocabularybook.presentation.ui.theme.MyButtonTextColor
-import com.erkindilekci.vocabularybook.presentation.ui.theme.MyCardColor
+import com.erkindilekci.vocabularybook.presentation.util.ui.theme.MyBackgroundColor
+import com.erkindilekci.vocabularybook.presentation.util.ui.theme.MyButtonTextColor
+import com.erkindilekci.vocabularybook.presentation.util.ui.theme.MyCardColor
 import com.erkindilekci.vocabularybook.presentation.viewmodels.DetailScreenViewModel
 import kotlinx.coroutines.launch
 
@@ -63,7 +63,7 @@ fun DetailScreen(
 
     val detailScreenState = viewModel.detailState.collectAsState().value
 
-    var vocabularyList = detailScreenState.vocabularyList
+    val vocabularyList = detailScreenState.vocabularyList
 
     LaunchedEffect(key1 = true) {
         viewModel.getVocabulariesByCategory(category)

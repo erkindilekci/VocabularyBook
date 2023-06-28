@@ -1,4 +1,4 @@
-package com.erkindilekci.vocabularybook.presentation.categoryscreen
+package com.erkindilekci.vocabularybook.presentation.screens.categoryscreen
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
@@ -22,7 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.erkindilekci.vocabularybook.R
-import com.erkindilekci.vocabularybook.presentation.ui.theme.*
+import com.erkindilekci.vocabularybook.presentation.util.ui.theme.*
 import com.erkindilekci.vocabularybook.presentation.viewmodels.CategoryScreenViewModel
 import com.erkindilekci.vocabularybook.util.Constants
 

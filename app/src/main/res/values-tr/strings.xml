@@ -21,4 +21,6 @@
     <string name="update">Güncelle</string>
     <string name="denied_message">Give this permission to use app properly!</string>
     <string name="rationale_message">To use this app\'s functionalities, you need to give permission.</string>
+    <string name="description_in_other_language_optional">Description in other language (optional)</string>
+    <string name="empty_please_add_meaning">Empty, please add meaning</string>
 </resources>

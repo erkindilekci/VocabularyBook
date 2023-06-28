@@ -1,4 +1,4 @@
-package com.erkindilekci.vocabularybook.presentation.ui.theme
+package com.erkindilekci.vocabularybook.presentation.util.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
